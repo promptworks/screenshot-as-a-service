@@ -75,6 +75,9 @@ service = server.listen(port, function(request, response) {
     if (request.headers.clipRect) {
       page.clipRect = JSON.parse(request.headers.clipRect);
     }
+    if (request.headers.zoomFactor) {
+      page.zoomFactor = JSON.parse(request.headers.zoomFactor);
+    }
     for (name in pageSettings) {
       if (value = request.headers[pageSettings[name]]) {
         value = (value == 'false') ? false : ((value == 'true') ? true : value);
