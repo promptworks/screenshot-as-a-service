@@ -9,7 +9,15 @@ module.exports = function(app, useCors) {
   var fileCleanerService = app.settings.fileCleanerService;
 
   // routes
-  app.get('/', function(req, res, next) {
+  app.get('/', function (req, res, next) {
+    processRequest(req, res, next);
+  });
+
+  app.post('/', function (req, res, next) {
+    processRequest(req, res, next);
+  });
+
+  var processRequest = function(req, res, next) {
     if (!req.param('url', false)) {
       return res.redirect('/usage.html');
     }
@@ -40,7 +48,7 @@ module.exports = function(app, useCors) {
     }
     console.log('Request for %s - Rasterizing it', url);
     processImageUsingRasterizer(options, filePath, res, callbackUrl, function(err) { if(err) next(err); });
-  });
+  }
 
   app.get('*', function(req, res, next) {
     // for backwards compatibility, try redirecting to the main route if the request looks like /www.google.com
